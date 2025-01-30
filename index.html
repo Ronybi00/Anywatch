@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anywatch - Dandadan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e50914;
+            --dark: #0a0a0a;
+            --light: #fff;
+            --card-bg: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .video-container {
+            margin-top: 50px;
+            position: relative;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        #video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+        }
+
+        .anime-info {
+            padding: 1rem;
+            background: var(--card-bg);
+            margin: 1rem auto;
+            border-radius: 8px;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .anime-info h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .anime-description {
+            margin-top: 0.5rem;
+            text-align: justify;
+            color: #ccc;
+        }
+
+        .episodes-list {
+            padding: 1rem;
+            max-width: 600px;
+            margin: 1rem auto;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
+
+        .episode-item {
+            padding: 0.8rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .watch-btn {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .watch-btn:hover {
+            background: #d40812;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container" id="video-container">
+        <video id="video-player" poster="https://example.com/poster.jpg" controls controlsList="nodownload">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="anime-info">
+        <h1>Dandadan</h1>
+        <p><strong>Genres:</strong> Action, Comedy, Supernatural</p>
+        <p><strong>Rating:</strong> <i class="fas fa-star"></i> 7.8/10</p>
+        <p class="anime-description">
+            Dandadan follows the story of a high school student who discovers a hidden world of spirits and demons. With the help of his newfound friends, he must navigate this mysterious realm while balancing his normal life.
+        </p>
+    </div>
+
+    <div class="episodes-list">
+        <!-- Season 1 Episodes -->
+        <div class="episode-item" onclick="playEpisode(1)">
+            <span>Episode1: The Mysterious Transfer Student</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(2)">
+            <span>Episode 2: The First Encounter</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(3)">
+            <span>Episode 3: The Hidden World</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(4)">
+            <span>Episode 4: The Spirit World</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(5)">
+            <span>Episode 5: The Power of Friendship</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(6)">
+            <span>Episode 6: The Secret Revealed</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(7)">
+            <span>Episode 7: The Battle Begins</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(8)">
+            <span>Episode 8: The True Enemy</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(9)">
+            <span>Episode 9: The Final Showdown</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(10)">
+            <span>Episode 10: The New Beginning</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(11)">
+            <span>Episode 11: The Shadow of the Past</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+        <div class="episode-item" onclick="playEpisode(12)">
+            <span>Episode 12: The Final Chapter</span>
+            <button class="watch-btn">Watch</button>
+        </div>
+    </div>
+
+    <script>
+        const videoPlayer = document.getElementById('video-player');
+        const videoContainer = document.getElementById('video-container');
+
+        // Episode sources (replace with actual URLs)
+        const episodes = {
+            1: 'https://archive.org/download/dandadan-s-01-e-01-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E01%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4',
+            2: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E02%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            3: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E03%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            4: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E04%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            5: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E05%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            6: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E06%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            7: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E07%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            8: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E08%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            9: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E09%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            10: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E10%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            11: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E11%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mkv',
+            12: 'https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E12%20480p%20x264%20WEB-DL%20%5BHindi-Eng-Jap%5D%20ESub%20%5BDeadToons%5D.mkv'
+        };
+
+        function playEpisode(episode) {
+            if (!episodes[episode]) return;
+
+            videoPlayer.pause();
+            videoPlayer.src = episodes[episode];
+            videoPlayer.load();
+
+            // Smooth scroll to video player
+            videoContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            videoPlayer.play();
+        }
+
+        // Handle video loading errors
+        videoPlayer.addEventListener('error', () => {
+            alert('Error loading video. Please try again.');
+        });
+
+        // Automatically play the first episode when the page loads
+        window.addEventListener('load', () => {
+            playEpisode(1);
+        });
+    </script>
+</body>
+</html>
