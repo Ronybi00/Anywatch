@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anywatch - Dandadan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
         :root {
             --primary: #e50914;
@@ -29,33 +29,17 @@
         }
 
         .player-container {
-            max-width: 1100px;
+            max-width: 90vw;
             margin: 2rem auto;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        #main-video {
-            width: 100%;
-            height: 100%;
-            display: block;
-            background: #000;
-            cursor: pointer;
             aspect-ratio: 16/9;
-            -webkit-media-controls: fullscreen volume;
-            controlsList: nodownload;
-        }
-
-        /* Remove download button */
-        video::-webkit-media-controls-download-button,
-        video::-webkit-media-controls-overlay-play-button {
-            display: none !important;
         }
 
         .anime-info {
-            max-width: 1100px;
+            max-width: 90vw;
             margin: 2rem auto;
             padding: 2rem;
             background: var(--glass);
@@ -64,10 +48,10 @@
         }
 
         .episodes-list {
-            max-width: 1100px;
+            max-width: 90vw;
             margin: 2rem auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
             margin-bottom: 4rem;
         }
@@ -110,19 +94,38 @@
             border-radius: 20px;
             font-size: 0.9rem;
         }
+
+        /* Video.js Styling */
+        .video-js {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .player-container, .anime-info, .episodes-list {
+                max-width: 95vw;
+                margin: 1rem auto;
+            }
+            
+            .episode-card {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Video Player -->
     <div class="player-container" id="player-container">
-        <video id="main-video" 
-               poster="https://example.com/poster.jpg" 
-               controls 
-               preload="auto"
-               controlsList="nodownload noremoteplayback" 
-               oncontextmenu="return false;">
-            <!-- Source loaded via JavaScript -->
-        </video>
+        <video
+            id="main-video"
+            class="video-js"
+            controls
+            preload="auto"
+            poster="https://example.com/poster.jpg"
+            data-setup='{ "fluid": true }'
+            muted
+        ></video>
     </div>
 
     <!-- Anime Info -->
@@ -203,33 +206,38 @@
         </div>
     </div>
 
+    <!-- Video.js JS -->
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
-        const video = document.getElementById('main-video');
+        const player = videojs('main-video');
         const episodes = {
             1: "https://archive.org/download/dandadan-s-01-e-01-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E01%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
-            2: "https://example.com/episode2.mp4",
-            3: "https://example.com/episode3.mp4",
-            4: "https://example.com/episode4.mp4",
-            5: "https://example.com/episode5.mp4",
-            6: "https://example.com/episode6.mp4",
-            7: "https://example.com/episode7.mp4",
-            8: "https://example.com/episode8.mp4",
-            9: "https://example.com/episode9.mp4",
-            10: "https://example.com/episode10.mp4",
-            11: "https://example.com/episode11.mp4",
-            12: "https://example.com/episode12.mp4"
+            2: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E02%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            3: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E03%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            4: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E04%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            5: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E05%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            6: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E06%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            7: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E07%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            8: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E08%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            9: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E09%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            10: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E10%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            11: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E11%20480p%20x264%20WEB-DL%20Multi%20Audio%20ESub%20%5BDeadToons%5D.mp4",
+            12: "https://archive.org/download/dandadan-s-01-e-09-480p-x-264-web-dl-multi-audio-esub-dead-toons/Dandadan%20S01E12%20480p%20x264%20WEB-DL%20%5BHindi-Eng-Jap%5D%20ESub%20%5BDeadToons%5D.mp4"
         };
 
         function playEpisode(episode) {
             if (!episodes[episode]) return;
-            
-            video.src = episodes[episode];
-            video.play().catch(error => {
-                console.log('Playback prevented:', error);
-            });
-            document.getElementById('player-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // Update active episode
+            player.src({ type: 'video/mp4', src: episodes[episode] });
+            player.play();
+
+            // Smooth scroll to the player
+            document.getElementById('player-container').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Update active episode styling
             document.querySelectorAll('.episode-card').forEach(card => {
                 card.style.background = '';
             });
@@ -239,18 +247,13 @@
         // Auto-play first episode on page load
         window.addEventListener('load', () => {
             const firstEpisodeCard = document.querySelector('.episode-card');
-            video.muted = true;
+            player.muted(true);
             playEpisode(1);
             firstEpisodeCard.style.background = 'rgba(229, 9, 20, 0.1)';
-            
-            video.play().catch(error => {
-                console.log('Autoplay prevented:', error);
-                video.muted = false;
-            });
         });
 
         // Error handling
-        video.addEventListener('error', () => {
+        player.on('error', () => {
             alert('Failed to load the video. Please try again later.');
         });
     </script>
